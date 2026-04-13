@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TRANSLATIONS
@@ -61,6 +61,13 @@ const T = {
       ['Prime SCHL',              'Incluse si mise de fonds < 20 % (max 4 % sur prêt)'],
     ],
     disclaimer: '⚠️ Outil d\'estimation seulement — non applicable à toute situation. Consultez un courtier hypothécaire agréé avant toute décision d\'achat.',
+    modalTitle: '⚠️ Avis important',
+    modalBody: [
+      'Cet outil est fourni à titre indicatif seulement. Les calculs sont basés sur des hypothèses simplifiées et ne constituent pas un avis financier, juridique ou hypothécaire.',
+      'Les résultats peuvent différer significativement de votre situation réelle selon votre dossier de crédit, vos dettes existantes, les taux du marché au moment de votre demande et les politiques des institutions financières.',
+      'Consultez un courtier hypothécaire agréé, un conseiller financier ou un notaire avant de prendre toute décision d\'achat immobilier.',
+    ],
+    modalConfirm: 'J\'ai compris — continuer',
   },
   en: {
     headerTitle: 'Quebec Real Estate Comparator',
@@ -119,6 +126,13 @@ const T = {
       ['CMHC premium',        'Included if down payment < 20% (max 4% on loan)'],
     ],
     disclaimer: '⚠️ Estimation tool only — not applicable to every situation. Consult a licensed mortgage broker before any purchase decision.',
+    modalTitle: '⚠️ Important Notice',
+    modalBody: [
+      'This tool is provided for informational purposes only. Calculations are based on simplified assumptions and do not constitute financial, legal, or mortgage advice.',
+      'Results may differ significantly from your actual situation depending on your credit history, existing debts, market rates at the time of your application, and lender policies.',
+      'Please consult a licensed mortgage broker, financial advisor, or notary before making any real estate purchase decision.',
+    ],
+    modalConfirm: 'I understand — continue',
   },
 }
 
@@ -392,22 +406,75 @@ function Card({ r, isBest, t }) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// DISCLAIMER MODAL
+// ─────────────────────────────────────────────────────────────────────────────
+function DisclaimerModal({ t, onAccept }) {
+  return (
+    <div className="modal-overlay">
+      <div className="modal-box" role="dialog" aria-modal="true">
+        <div className="modal-icon">⚠️</div>
+        <h2 className="modal-title">{t.modalTitle.replace('⚠️ ', '')}</h2>
+        <div className="modal-body">
+          {t.modalBody.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+        <button className="modal-btn" onClick={onAccept}>
+          {t.modalConfirm}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// LOCALSTORAGE HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+const LS_KEY = 'compare-plex-v1'
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(LS_KEY)
+    return raw ? JSON.parse(raw) : null
+  } catch { return null }
+}
+
+function saveState(state) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)) } catch {}
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // APP
 // ─────────────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [lang, setLang] = useState('fr')
+  // Load persisted state once on mount
+  const saved = loadState()
+
+  const [showModal, setShowModal] = useState(!saved?.disclaimerAccepted)
+  const [lang, setLang] = useState(saved?.lang ?? 'fr')
   const t = T[lang]
-  const [salary1, setSalary1] = useState(80000)
-  const [salary2, setSalary2] = useState(60000)
-  const [downAmount, setDownAmount] = useState(75000)
+  const [salary1, setSalary1] = useState(saved?.salary1 ?? 80000)
+  const [salary2, setSalary2] = useState(saved?.salary2 ?? 60000)
+  const [downAmount, setDownAmount] = useState(saved?.downAmount ?? 75000)
   // Numeric prices used for calculation
-  const [prices, setPrices] = useState({ maison: 450000, duplex: 600000, triplex: 750000 })
+  const [prices, setPrices] = useState(saved?.prices ?? { maison: 450000, duplex: 600000, triplex: 750000 })
   // Raw string values while user is typing — formatted at rest, raw digits while focused
   const [rawPrices, setRawPrices] = useState({
-    maison:  (450000).toLocaleString('fr-CA'),
-    duplex:  (600000).toLocaleString('fr-CA'),
-    triplex: (750000).toLocaleString('fr-CA'),
+    maison:  (saved?.prices?.maison  ?? 450000).toLocaleString('fr-CA'),
+    duplex:  (saved?.prices?.duplex  ?? 600000).toLocaleString('fr-CA'),
+    triplex: (saved?.prices?.triplex ?? 750000).toLocaleString('fr-CA'),
   })
+
+  // Persist state to localStorage whenever it changes
+  useEffect(() => {
+    saveState({ lang, salary1, salary2, downAmount, prices, disclaimerAccepted: !showModal })
+  }, [lang, salary1, salary2, downAmount, prices, showModal])
+
+  const handleAcceptDisclaimer = () => {
+    setShowModal(false)
+    saveState({ lang, salary1, salary2, downAmount, prices, disclaimerAccepted: true })
+  }
+
+  // Update lang in saved state when it changes
+  const handleLangChange = (l) => setLang(l)
 
   const totalSalary = salary1 + salary2
 
@@ -452,6 +519,8 @@ export default function App() {
     <>
       <style>{CSS}</style>
 
+      {showModal && <DisclaimerModal t={t} onAccept={handleAcceptDisclaimer} />}
+
       <header>
         <div className="header-inner">
           <div className="header-left">
@@ -465,11 +534,11 @@ export default function App() {
             <div className="lang-toggle">
               <button
                 className={`lang-btn${lang === 'fr' ? ' active' : ''}`}
-                onClick={() => setLang('fr')}
+                onClick={() => handleLangChange('fr')}
               >FR</button>
               <button
                 className={`lang-btn${lang === 'en' ? ' active' : ''}`}
-                onClick={() => setLang('en')}
+                onClick={() => handleLangChange('en')}
               >EN</button>
             </div>
             <a
@@ -1158,4 +1227,76 @@ const CSS = `
   @media (max-width: 500px) {
     .input-panel { padding: 20px 16px; }
   }
+
+  /* ── DISCLAIMER MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-box {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 36px 32px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 24px 64px rgba(0,0,0,.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: modal-in .2s ease;
+  }
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(12px) scale(.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .modal-icon {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .modal-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 20px;
+    letter-spacing: -.2px;
+  }
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+  .modal-body p {
+    font-size: .875rem;
+    color: #475569;
+    line-height: 1.65;
+    padding-left: 14px;
+    border-left: 3px solid #e2e8f0;
+  }
+  .modal-btn {
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 28px;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s, transform .1s;
+    width: 100%;
+    letter-spacing: -.1px;
+  }
+  .modal-btn:hover { background: #1e293b; }
+  .modal-btn:active { transform: scale(.98); }
 `
