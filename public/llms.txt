@@ -1,0 +1,29 @@
+# Compare-Plex — compare-plex.lumentai.com
+
+> Comparateur gratuit louer-vs-acheter et multiplex-vs-unifamiliale sur 25 ans pour le marché immobilier québécois. Projette mise de fonds, cash-flow mensuel, valeur nette et rendement total. Aucune inscription, aucune collecte de données.
+
+## Ce que l'outil fait
+
+- Compare sur 25 ans le scénario « louer + investir la différence » vs « acheter une résidence principale »
+- Compare l'achat d'un multiplex (plex à revenus) vs une unifamiliale
+- Modélise hypothèque, taxes foncières, entretien, assurance, frais de condo, mise de fonds et coûts de transaction
+- Projette la valeur nette finale selon hypothèses de rendement boursier, appréciation immobilière et inflation
+- Affiche le cash-flow mensuel d'un multiplex (revenus locatifs − dépenses − versements hypothécaires)
+
+## Sources & hypothèses
+
+- Société canadienne d'hypothèques et de logement (SCHL) — coûts, taux, ratios
+- Banque du Canada — taux directeur, inflation cible
+- Statistique Canada — évolution historique des loyers et prix immobiliers
+- Règle fiscale RP (résidence principale) — exonération de gain en capital
+
+## Suite CalculFinance
+
+- [CalculFinance (hub)](https://calculfinance.ca/) : 8 calculateurs financiers québécois gratuits, sans inscription
+- [À propos](https://calculfinance.ca/a-propos) : principes éditoriaux, sources, fondateur
+
+## Éditeur
+
+CalculFinance — calculateurs financiers québécois gratuits, sans inscription, sans collecte de données. Calculs exécutés localement dans le navigateur.
+Fondateur : Bastien Bastani, planificateur financier.
+Contact : allo@calculfinance.qc · https://calculfinance.ca
