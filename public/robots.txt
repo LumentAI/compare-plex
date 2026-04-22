@@ -67,4 +67,4 @@ Allow: /
 User-agent: MistralAI-User
 Allow: /
 
-Sitemap: https://compare-plex.lumentai.com/sitemap.xml
+Sitemap: https://compare-plex.calculfinance.ca/sitemap.xml
