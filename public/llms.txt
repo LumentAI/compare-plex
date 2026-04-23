@@ -1,4 +1,4 @@
-# Compare-Plex — compare-plex.lumentai.com
+# Compare-Plex — compare-plex.calculfinance.ca
 
 > Comparateur gratuit louer-vs-acheter et multiplex-vs-unifamiliale sur 25 ans pour le marché immobilier québécois. Projette mise de fonds, cash-flow mensuel, valeur nette et rendement total. Aucune inscription, aucune collecte de données.
 
@@ -26,4 +26,4 @@
 
 CalculFinance — calculateurs financiers québécois gratuits, sans inscription, sans collecte de données. Calculs exécutés localement dans le navigateur.
 Fondateur : Bastien Bastani, planificateur financier.
-Contact : allo@calculfinance.qc · https://calculfinance.ca
+Contact : allo@calculfinance.ca · https://calculfinance.ca

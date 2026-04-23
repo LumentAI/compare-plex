@@ -1,8 +1,17 @@
+# Compare-Plex — robots.txt
+# Calculateur financier québécois gratuit — suite CalculFinance
+# Site : https://compare-plex.calculfinance.ca
+# Dernière mise à jour : 2026-04-23
+
+# Règle par défaut : tout le contenu est public et indexable
 User-agent: *
 Allow: /
 
-# Moteurs de recherche traditionnels
+# ─── Moteurs de recherche traditionnels ───────────────────────
 User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
@@ -14,7 +23,13 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
-# Crawlers d'entraînement et d'indexation IA
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# ─── Crawlers d'entraînement et d'indexation IA ──────────────
 User-agent: GPTBot
 Allow: /
 
@@ -39,10 +54,31 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
+User-agent: FacebookBot
+Allow: /
+
 User-agent: Bytespider
 Allow: /
 
-# Agents utilisateurs IA (récupération au moment de la question)
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Kagibot
+Allow: /
+
+User-agent: FirecrawlAgent
+Allow: /
+
+# ─── Agents utilisateurs IA (récupération à la question) ─────
 User-agent: ChatGPT-User
 Allow: /
 
@@ -67,4 +103,33 @@ Allow: /
 User-agent: MistralAI-User
 Allow: /
 
+User-agent: Google-CloudVertexBot
+Allow: /
+
+# ─── Aperçus sociaux (unfurls / Open Graph) ──────────────────
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+# ─── Sitemap ─────────────────────────────────────────────────
 Sitemap: https://compare-plex.calculfinance.ca/sitemap.xml
