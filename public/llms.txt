@@ -19,7 +19,7 @@
 
 ## Suite CalculFinance
 
-- [CalculFinance (hub)](https://calculfinance.ca/) : 8 calculateurs financiers québécois gratuits, sans inscription
+- [CalculFinance (hub)](https://calculfinance.ca/) : 10 calculateurs financiers québécois gratuits, sans inscription
 - [À propos](https://calculfinance.ca/a-propos) : principes éditoriaux, sources, fondateur
 
 ## Éditeur

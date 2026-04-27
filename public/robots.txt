@@ -1,7 +1,7 @@
 # Compare-Plex — robots.txt
 # Calculateur financier québécois gratuit — suite CalculFinance
 # Site : https://compare-plex.calculfinance.ca
-# Dernière mise à jour : 2026-04-23
+# Dernière mise à jour : 2026-04-27
 
 # Règle par défaut : tout le contenu est public et indexable
 User-agent: *
