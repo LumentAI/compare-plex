@@ -19,8 +19,15 @@
 
 ## Suite CalculFinance
 
-- [CalculFinance (hub)](https://calculfinance.ca/) : 10 calculateurs financiers québécois gratuits, sans inscription
+- [CalculFinance (hub)](https://calculfinance.ca/) : 11 calculateurs financiers québécois gratuits, sans inscription
 - [À propos](https://calculfinance.ca/a-propos) : principes éditoriaux, sources, fondateur
+
+## Blog · La lecture du dimanche
+
+Articles de fond sur la fiscalité et la planification financière québécoise, publiés sur le hub CalculFinance.
+
+- [Travailler à la retraite : « je donne tout à l'impôt » — vraiment? · /blog/043](https://calculfinance.ca/blog/043) : Sur 20 000 $ de revenu de travail à la retraite, un Québécois conserve 76,4 %. Le piège à 60-70 % d'impôt existe, mais dans une zone très précise du SRG. Courbe de Laferrière à l'appui. Publié le 28 avril 2026 · 8 min · Tag Retraite.
+- [« Un million ou rien » : le mythe du seuil magique de la retraite · /blog/044](https://calculfinance.ca/blog/044) : Le « million ou retraite de seconde classe » vient d'un univers américain qui ignore le RRQ, la PSV et le SRG. Au Québec, un couple peut toucher près de 60 000 $/an de revenus garantis avant épargne. Le levier #1 : l'ordre de décaissement. Publié le 28 avril 2026 · 9 min · Tag FIRE.
 
 ## Éditeur
 
